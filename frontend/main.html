@@ -14,14 +14,16 @@
         <script>
             $(document).ready(function() {
                 var auth_key = findGetParameter("auth_key");
+                var base_url = window.location.protocol+"//"+window.location.hostname;
                 // alert(`using ${auth_key}`);
                 update_devices_table(auth_key);
                 window.setInterval(function() {update_devices_table(auth_key)}, 1000)
         });
 
         function update_devices_table(auth_key) {
+					var base_url = window.location.protocol+"//"+window.location.hostname;
                     $.ajax({
-                url: `https://remote.navisec.xyz/heartbeats/${auth_key}`,
+					url: `${base_url}/heartbeats/${auth_key}`,
             })
             .done(function(devices) {
                 let devices_html = `<thead>
@@ -77,8 +79,9 @@
         }
 
         function add_device(key, auth_key) {
+            var base_url = window.location.protocol+"//"+window.location.hostname;
             $.ajax({
-                url: `https://remote.navisec.xyz/add/${auth_key}/${key}`,
+				url: `${base_url}/add/${auth_key}/${key}`,
                 }).done(function(resp) {
                     console.log(resp)
             });
@@ -86,8 +89,9 @@
 
 
         function remove_device(key, auth_key) {
+            var base_url = window.location.protocol+"//"+window.location.hostname;
             $.ajax({
-                url: `https://remote.navisec.xyz/remove/${auth_key}/${key}`,
+				url: `${base_url}/${auth_key}/${key}`,
                 }).done(function(resp) {
                     console.log(resp)
             });
